@@ -6,7 +6,7 @@ fetch('./data/comidas.json')          // Ruta al archivo JSON
   .then(response => response.json())  // Convertir la respuesta en JSON
   .then(data => {                     // Aquí tienes acceso al JSON en formato de objeto JS
     console.log('Comidas cargadas desde JSON:');
-    console.log(data);    
+    //console.log(data);    
     comidas = data;                   // Asignar el JSON a la variable comidas
   })
   .catch(error => {                   // Manejo de errores al leer el archivo JSON
@@ -75,43 +75,26 @@ let comidas = [
     "ingredientes": ["Harina", "Agua", "Sal", "Grasa"]
   }
 ];
-let n = 0;
-while (comidas.length > n) {
-const container = document.getElementById('comidaContainer').innerHTML +=
-`<main class="comida-container" id="comidaContainer">
+
+
+function mostrarcomidas(){
+comidas.forEach(Comida => {
+const container = document.getElementById('comidaContainer').innerHTML += `
        <article class = 'comida'>
-        ${comidas[n].nombre}
+        ${Comida.nombre}
         </article>
         <article class = 'categoria'>
-        ${comidas[n].categoria}
+        ${Comida.categoria}
         </article>
         <article class = 'provincia'>
-        ${comidas[n].provincia}
+        ${Comida.provincia}
         </article>
         <ul class = 'ingredientes'>
-        ${comidas[n].ingredientes}
+        ${Comida.ingredientes}
         </ul>
-    </main>
-    
-    <style>
-    *{margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    .comida-container{
-    background-color: rgb(255, 255, 255);
-    height: 100%;
-    width: 100%;
-    padding: 0px;
-    margin: 0px;
-     display:flex;
-    text-overflow: hidden;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    border-color:  rgb(252, 17, 17);
-   border-radius: 6px; border: 4px solid black;
-    }
-    `
-    n++    
+     `  
 }
+)
+}
+
+mostrarcomidas()
