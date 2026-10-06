@@ -98,3 +98,5 @@ const container = document.getElementById('comidaContainer').innerHTML += `
 }
 
 mostrarcomidas()
+
+
