@@ -1,89 +1,35 @@
 /*
     Cargar comidas en memoria desde el JSON
 */
-
+let comidas = [
+ 
+];
 fetch('./data/comidas.json')          // Ruta al archivo JSON
   .then(response => response.json())  // Convertir la respuesta en JSON
   .then(data => {                     // Aquí tienes acceso al JSON en formato de objeto JS
     console.log('Comidas cargadas desde JSON:');
     //console.log(data);    
-    comidas = data;                   // Asignar el JSON a la variable comidas
+    comidas = data;     
+     mostrarcomidas()              // Asignar el JSON a la variable comidas
   })
   .catch(error => {                   // Manejo de errores al leer el archivo JSON
     console.error('Error al leer el archivo JSON:', error);
   });
 
-let comidas = [
-  {
-    "nombre": "Asado",
-    "categoria": "Parrilla",
-    "provincia": "Buenos Aires",
-    "ingredientes": ["Carne vacuna", "Sal", "Chimichurri"]
-  },
-  {
-    "nombre": "Empanadas",
-    "categoria": "Horno",
-    "provincia": "Tucumán",
-    "ingredientes": ["Carne", "Cebolla", "Aceitunas", "Huevo"]
-  },
-  {
-    "nombre": "Locro",
-    "categoria": "Guiso",
-    "provincia": "Salta",
-    "ingredientes": ["Maíz", "Porotos", "Chorizo", "Panceta", "Zapallo"]
-  },
-  {
-    "nombre": "Milanesa",
-    "categoria": "Frito",
-    "provincia": "Buenos Aires",
-    "ingredientes": ["Carne", "Huevo", "Pan rallado", "Aceite"]
-  },
-  {
-    "nombre": "Humita en Chala",
-    "categoria": "Horno",
-    "provincia": "Jujuy",
-    "ingredientes": ["Maíz", "Queso", "Cebolla", "Ají molido"]
-  },
-  {
-    "nombre": "Choripán",
-    "categoria": "Parrilla",
-    "provincia": "Córdoba",
-    "ingredientes": ["Chorizo", "Pan", "Chimichurri"]
-  },
-  {
-    "nombre": "Provoleta",
-    "categoria": "Parrilla",
-    "provincia": "Buenos Aires",
-    "ingredientes": ["Queso provolone", "Orégano", "Aceite de oliva"]
-  },
-  {
-    "nombre": "Milanesas a la napolitana",
-    "categoria": "Frito",
-    "provincia": "Santa Fe",
-    "ingredientes": ["Carne", "Tomate", "Queso", "Jamón", "Orégano"]
-  },
-  {
-    "nombre": "Matambre a la pizza",
-    "categoria": "Parrilla",
-    "provincia": "Buenos Aires",
-    "ingredientes": ["Matambre", "Queso", "Tomate", "Orégano"]
-  },
-  {
-    "nombre": "Torta Frita",
-    "categoria": "Frito",
-    "provincia": "Entre Ríos",
-    "ingredientes": ["Harina", "Agua", "Sal", "Grasa"]
-  }
-];
-let ingredientesHt = '';
-comidas.ingredientes.forEach(ingrediente => {
-  ingredientesHt += `<li>${ingrediente}</li>`;
-});
 
+let ingredientesHt = '';
+function mostrarIngredientes(ingredientes) {
+  let ingredientesHt = '';
+  ingredientes.forEach(ingrediente => {
+    ingredientesHt += `<li>${ingrediente}</li>`;
+  });
+  return ingredientesHt;
+}
 
 
 
 function mostrarcomidas(){
+  comidaContainer.innerHTML = ''; // Limpiar el contenedor antes de mostrar las comidas
 comidas.forEach(Comida => {
 const container = document.getElementById('comidaContainer').innerHTML += `
 <article class = 'Cartadecomida'>
@@ -97,7 +43,7 @@ const container = document.getElementById('comidaContainer').innerHTML += `
         ${Comida.provincia}
         </article>
         <ul class = 'ingredientes'>
-        ${ingredientesHt}
+        ${mostrarIngredientes(Comida.ingredientes)}
         </ul>
         </article>
      `  
@@ -108,17 +54,18 @@ const container = document.getElementById('comidaContainer').innerHTML += `
 mostrarcomidas()
 
 
-anadircomida = document.getElementById('anadircomidas');
-
+const anadircomida = document.getElementById('addFoodForm');
 anadircomida.addEventListener('submit', (event) => {
   event.preventDefault(); 
   
   let enviacomida = {
     nombre: event.target.foodName.value,
-    categoria: event.target.foodCategory.value,
-    provincia: event.target.foodprovince.value,
+    categoria: event.target.foodDescription.value,
+    provincia: event.target.foodProvince.value,
     ingredientes: event.target.foodIngredients.value.split(',').map(ingrediente => ingrediente.trim())
   }
 
   comidas.push(enviacomida); // Agregar la nueva comida al array de comidas
+
+  mostrarcomidas()
 })
