@@ -1,1 +1,9 @@
 .vscode/
+ <section class="addFood">
+      <form id="addFoodForm">
+        <input type="text" id="foodName" placeholder="Nombre de la comida" required>
+        <input type="text" id="foodDescription" placeholder="Descripción de la comida" required>
+        <input type="text" id="foodImage" placeholder="URL de la imagen" required>
+        <button type="submit">Agregar Comida</button>
+      </form>
+    </section>

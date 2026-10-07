@@ -75,11 +75,18 @@ let comidas = [
     "ingredientes": ["Harina", "Agua", "Sal", "Grasa"]
   }
 ];
+let ingredientesHt = '';
+comidas.ingredientes.forEach(ingrediente => {
+  ingredientesHt += `<li>${ingrediente}</li>`;
+});
+
+
 
 
 function mostrarcomidas(){
 comidas.forEach(Comida => {
 const container = document.getElementById('comidaContainer').innerHTML += `
+<article class = 'Cartadecomida'>
        <article class = 'comida'>
         ${Comida.nombre}
         </article>
@@ -90,11 +97,28 @@ const container = document.getElementById('comidaContainer').innerHTML += `
         ${Comida.provincia}
         </article>
         <ul class = 'ingredientes'>
-        ${Comida.ingredientes}
+        ${ingredientesHt}
         </ul>
+        </article>
      `  
 }
 )
 }
 
 mostrarcomidas()
+
+
+anadircomida = document.getElementById('anadircomidas');
+
+anadircomida.addEventListener('submit', (event) => {
+  event.preventDefault(); 
+  
+  let enviacomida = {
+    nombre: event.target.foodName.value,
+    categoria: event.target.foodCategory.value,
+    provincia: event.target.foodprovince.value,
+    ingredientes: event.target.foodIngredients.value.split(',').map(ingrediente => ingrediente.trim())
+  }
+
+  comidas.push(enviacomida); // Agregar la nueva comida al array de comidas
+})
