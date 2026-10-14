@@ -28,10 +28,10 @@ function mostrarIngredientes(ingredientes) {
 
 
 
-function mostrarcomidas(){
+function mostrarcomidas(listaComidas = comidas) {
   comidaContainer.innerHTML = ''; // Limpiar el contenedor antes de mostrar las comidas
-comidas.forEach(Comida => {
-const container = document.getElementById('comidaContainer').innerHTML += `
+  listaComidas.forEach(Comida => {
+    const container = document.getElementById('comidaContainer').innerHTML += `
 <article class = 'Cartadecomida'>
        <article class = 'comida'>
         ${Comida.nombre}
@@ -72,7 +72,7 @@ anadircomida.addEventListener('submit', (event) => {
 
 const filtroCategoria = document.getElementById('filtroCategoria');
 const filtroProvincia = document.getElementById('filtroProvincia');
-const buscaca = document.getElementById('buscador');
+const buscaca = document.getElementById('buscaca');
 function filtrar(){
 const comidasfiltradas = comidas.filter(comida => {
   return comida.categoria.includes(filtroCategoria.value) && 
